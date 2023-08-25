@@ -10,37 +10,37 @@ const items = [
   [
     {
       label: 'Edit',
-      href: '#',
+      href: '#test',
     },
     {
       label: 'Duplicate',
-      href: '#',
+      href: '#test',
     },
   ],
   [
     {
       label: 'Archive',
-      href: '#',
+      href: '#test',
     },
     {
       label: 'Move',
-      href: '#',
+      href: '#test',
     },
   ],
   [
     {
       label: 'Share',
-      href: '#',
+      href: '#test',
     },
     {
       label: 'Add to favorites',
-      href: '#',
+      href: '#test',
     },
   ],
   [
     {
       label: 'Delete',
-      href: '#',
+      href: '#test',
     },
   ],
 ]
@@ -78,27 +78,6 @@ const items = [
           <NButton :to="link.href" :btn="`${active ? 'soft-gray' : 'ghost-gray'} block`" class="justify-start" :label="link.label" />
         </MenuItem>
       </div>
-      <!-- <div class="py-1">
-          <MenuItem v-slot="{ active }">
-            <a href="#" class="block px-4 py-2 text-sm" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700']">Archive</a>
-          </MenuItem>
-          <MenuItem v-slot="{ active }">
-            <a href="#" class="block px-4 py-2 text-sm" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700']">Move</a>
-          </MenuItem>
-        </div>
-        <div class="py-1">
-          <MenuItem v-slot="{ active }">
-            <a href="#" class="block px-4 py-2 text-sm" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700']">Share</a>
-          </MenuItem>
-          <MenuItem v-slot="{ active }">
-            <a href="#" class="block px-4 py-2 text-sm" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700']">Add to favorites</a>
-          </MenuItem>
-        </div>
-        <div class="py-1">
-          <MenuItem v-slot="{ active }">
-            <a href="#" class="block px-4 py-2 text-sm" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700']">Delete</a>
-          </MenuItem>
-        </div> -->
     </MenuItems>
     <!-- </transition> -->
   </Menu>
