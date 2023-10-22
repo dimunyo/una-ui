@@ -7,13 +7,14 @@ import {
 } from 'unocss'
 
 import presetUna from './packages/preset/src/index'
+import prefixes from './packages/preset/src/prefixes'
+import extratorUna from './packages/extractor-vue-script/src/index'
 
 export default {
   preflight: false,
+
   presets: [
-    presetUno({
-      // attributifyPseudo: true,
-    }),
+    presetUno(),
     presetAttributify(),
     presetIcons({
       scale: 1.2,
@@ -28,8 +29,18 @@ export default {
     transformerDirectives(),
     transformerVariantGroup(),
   ],
+  extractors: [
+    extratorUna({
+      prefixes,
+    }),
+  ],
   configDeps: [
     '../packages/preset/src/_shortcuts/dropdown.ts',
+    '../packages/preset/src/_shortcuts/checkbox.ts',
+    '../packages/preset/src/_shortcuts/radio.ts',
+    '../packages/preset/src/_shortcuts/link.ts',
+    '../packages/preset/src/_shortcuts/nav-link-group.ts',
+    '../packages/preset/src/_shortcuts/nav-link.ts',
     '../packages/preset/src/_shortcuts/kbd.ts',
     '../packages/preset/src/_shortcuts/indicator.ts',
     '../packages/preset/src/_shortcuts/avatar-group.ts',

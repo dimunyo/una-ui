@@ -1,6 +1,6 @@
 {
   "name": "@una-ui/preset",
-  "version": "0.1.1-beta.1",
+  "version": "0.3.0-beta.1",
   "description": "The default preset for @una-ui",
   "author": "Phojie Rengel <phojrengel@gmail.com>",
   "license": "MIT",
@@ -22,13 +22,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./shortcuts": {
       "types": "./dist/shortcuts.d.ts",
-      "import": "./dist/shortcuts.mjs",
-      "require": "./dist/shortcuts.cjs"
+      "require": "./dist/shortcuts.cjs",
+      "import": "./dist/shortcuts.mjs"
+    },
+    "./prefixes": {
+      "types": "./dist/prefixes.d.ts",
+      "require": "./dist/prefixes.cjs",
+      "import": "./dist/prefixes.mjs"
     },
     "./*": "./*"
   },
@@ -49,8 +54,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@unocss/core": "^0.55.1",
-    "@unocss/preset-mini": "^0.55.1",
-    "unocss": "^0.55.1"
+    "@unocss/core": "^0.55.7",
+    "@unocss/preset-mini": "^0.55.7",
+    "unocss": "^0.55.7"
   }
 }
