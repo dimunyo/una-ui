@@ -2,46 +2,47 @@ export interface NInputProps {
   /**
    *
    * @default null
-  */
-  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url'
+   */
+  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'textarea' | ''
+
   /**
    * Update the input status.
    * Useful for validations.
    *
    * @default null
-  */
+   */
   status?: 'info' | 'success' | 'warning' | 'error'
 
   /**
    * Add loading state to the input.
    *
    * @default false
-  */
+   */
   loading?: boolean
   /**
    * Swap the position of the leading and trailing icons.
    *
    * @default false
-  */
+   */
   reverse?: boolean
 
   /**
    * Value of the input.
    *
    * @default null
-  */
+   */
   modelValue?: string | number
   /**
    * Display leading icon.
    *
    * @default null
-  */
+   */
   leading?: string
   /**
    * Display trailing icon.
    *
    * @default null
-  */
+   */
   trailing?: string
   /**
    * Allows you to add `UnaUI` input preset properties,
@@ -50,16 +51,16 @@ export interface NInputProps {
    * @see https://github.com/una-ui/una-ui/blob/main/packages/preset/src/_shortcuts/input.ts
    * @example
    * input="solid-green"
-  */
+   */
   input?: string
   /**
    * Allows you to change the size of the input.
    *
-   * @default size="sm"
+   * @default sm
    *
    * @example
    * size="sm" | size="2cm" | size="2rem" | size="2px"
-  */
+   */
   size?: string
 
   /**
@@ -70,14 +71,47 @@ export interface NInputProps {
    * @default randomId
    * @example
    * id="email"
-  */
+   */
   id?: string
+
+  /**
+   * Automatically resize the textarea to fit the content.
+   * This property only works with the `textarea` type.
+   *
+   * @default false
+   */
+  autoresize?: boolean | number
+
+  /**
+   * This property only works with the `textarea` type.
+   * You can add your own resize preset or use the default one.
+   *
+   * @default none
+   *
+   * @example
+   * resize="x" | resize="y" | resize="none" | null
+   */
+  resize?: string | null
+
+  /**
+   * This property only works with the `textarea` type.
+   *
+   * @default 3
+   */
+  rows?: number
+
+  /**
+   * This property only works with the `textarea` type.
+   *
+   * @default 3
+   */
+  cols?: number
 
   /**
    * `UnaUI` preset configuration
    *
    * @see https://github.com/una-ui/una-ui/blob/main/packages/preset/src/_shortcuts/input.ts
-  */
+   */
   una?: {
     // base
     input?: string

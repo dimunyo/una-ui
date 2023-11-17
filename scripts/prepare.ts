@@ -38,10 +38,8 @@ const filteredPrimaryThemes = primaryThemes.filter(([color]) => ['yellow'].inclu
 const filteredGrayThemes = grayThemes.filter(([color]) => ['stone'].includes(color))[0][1]
 
 // generate default theme
-await fs.writeFile('./packages/preset/src/_style/theme.css',
-  `:root {\n${Object.entries(filteredPrimaryThemes).map(([k, v]) => `  ${k}: ${v};`).join('\n')}
-      \n${Object.entries(filteredGrayThemes).map(([k, v]) => `  ${k}: ${v};`).join('\n')}\n}\n`,
-  { encoding: 'utf-8' })
+await fs.writeFile('./packages/preset/src/_style/theme.css', `:root {\n${Object.entries(filteredPrimaryThemes).map(([k, v]) => `  ${k}: ${v};`).join('\n')}
+      \n${Object.entries(filteredGrayThemes).map(([k, v]) => `  ${k}: ${v};`).join('\n')}\n}\n`, { encoding: 'utf-8' })
 
 // copy color-themes.ts
 // const _filename = fileURLToPath(import.meta.url)
@@ -52,7 +50,7 @@ const prefixFiles = await fg('packages/preset/src/_shortcuts/*.ts', {
   absolute: true,
 })
 const prefixes = prefixFiles.map(i => basename(i, extname(i))).filter(i => i !== 'index')
-const global = ['size']
+const global = ['resize', 'size', 'nav-link-active', 'nav-link-inactive']
 prefixes.push(...global)
 const formattedPrefixes = `export default [${prefixes.map(p => `'${p}'`).join(', ')}]\n`
 await fs.writeFile('./packages/preset/src/prefixes.ts', formattedPrefixes, { encoding: 'utf-8' })

@@ -1,12 +1,19 @@
-import { fileURLToPath } from 'node:url'
-import { addComponentsDir, addPlugin, createResolver, defineNuxtModule, installModule } from '@nuxt/kit'
+import { addComponentsDir, addImportsDir, addPlugin, createResolver, defineNuxtModule, installModule } from '@nuxt/kit'
 import { name, version } from '../package.json'
 
-import { extendUnocssOptions } from './unocss'
+import extendUnocssOptions from './una.config'
 
-function rPath(p: string) {
-  return fileURLToPath(new URL(p, import.meta.url).toString())
+interface UnaOptions {
+  primary?: string
+  gray?: string
 }
+
+declare module '@nuxt/schema' {
+  interface AppConfigInput {
+    una?: UnaOptions
+  }
+}
+
 // Module options TypeScript interface definition
 export interface ModuleOptions {
   /**
@@ -18,7 +25,7 @@ export interface ModuleOptions {
    * @default true
    * @description Enable themeable ui
    *
-  */
+   */
   themeable?: boolean
 
   /**
@@ -26,12 +33,6 @@ export interface ModuleOptions {
    * @description Register components globally
    */
   global?: boolean
-
-  /**
-   * @default '@una-ui/preset'
-   * @description Path to preset
-   */
-  preset?: string
 
   /**
    * @default false
@@ -51,7 +52,6 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     prefix: 'N',
     themeable: true,
-    preset: rPath('./preset'),
     global: true,
     dev: false,
   },
@@ -60,6 +60,11 @@ export default defineNuxtModule<ModuleOptions>({
 
     // css
     nuxt.options.css.unshift('@una-ui/preset/una.css')
+
+    nuxt.options.appConfig.una = {
+      primary: 'yellow',
+      gray: 'stone',
+    }
 
     // transpile runtime
     const runtimeDir = resolve('./runtime')
@@ -112,5 +117,6 @@ export default defineNuxtModule<ModuleOptions>({
     await installModule('@vueuse/nuxt')
 
     // composables
+    addImportsDir(resolve(runtimeDir, 'composables'))
   },
 })

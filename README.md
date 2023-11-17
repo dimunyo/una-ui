@@ -1,6 +1,7 @@
 # ✨ Una UI
 
-> **Warning**: This project is heavily working in progress.
+> [!WARNING]  
+> This project is heavily working in progress.
 
 ## 🏗️ Release Status
 
@@ -12,6 +13,14 @@
 ## 📙 Documentation
 
 Visit https://www.unaui.com for full documentation.
+
+## 🌻 Sponsors
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/phojie/static/sponsors.svg">
+    <img src='https://cdn.jsdelivr.net/gh/phojie/static/sponsors.svg'/>
+  </a>
+</p>
 
 ## 🏛️ License
 

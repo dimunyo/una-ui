@@ -1,4 +1,5 @@
 import {
+  defineConfig,
   presetAttributify,
   presetIcons,
   presetUno,
@@ -10,9 +11,7 @@ import presetUna from './packages/preset/src/index'
 import prefixes from './packages/preset/src/prefixes'
 import extratorUna from './packages/extractor-vue-script/src/index'
 
-export default {
-  preflight: false,
-
+export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
@@ -56,6 +55,5 @@ export default {
     '../packages/preset/src/_shortcuts/index.ts',
 
     '../packages/preset/src/index.ts',
-    '../packages/nuxt/src/unocss.ts',
   ],
-}
+})

@@ -1,23 +1,6 @@
 import { colors } from '@unocss/preset-mini/colors'
 import { hexToRgb } from '../utils'
-
-interface Colors {
-  [key: string]: string
-}
-
-interface ColorPalette {
-  50: string
-  100: string
-  200: string
-  300: string
-  400: string
-  500: string
-  600: string
-  700: string
-  800: string
-  900: string
-  950: string
-}
+import type { ColorPalette, Colors } from '../types'
 
 type Shade = keyof ColorPalette
 
@@ -25,11 +8,25 @@ type Shade = keyof ColorPalette
 const filteredPrimaryColors = Object.fromEntries(
   Object.entries(colors)
     .filter(([key]) => [
-      'blue', 'cyan', 'sky', 'amber',
-      'yellow', 'emerald', 'lime', 'orange',
-      'purple', 'indigo', 'pink', 'tomato',
-      'green', 'fuchsia', 'violet', 'rose',
-      'amber', 'red', 'teal',
+      'blue',
+      'cyan',
+      'sky',
+      'amber',
+      'yellow',
+      'emerald',
+      'lime',
+      'orange',
+      'purple',
+      'indigo',
+      'pink',
+      'tomato',
+      'green',
+      'fuchsia',
+      'violet',
+      'rose',
+      'amber',
+      'red',
+      'teal',
     ].includes(key))
     .map(([key, value]) => [key, Object.fromEntries(
       Object.entries(value)
@@ -124,39 +121,46 @@ const filteredColors = {
   ...filteredGrayColors,
 } as Record<string, ColorPalette>
 
-export function getColors(color: string, prefix: string): Colors {
-  const colorPalette: ColorPalette = filteredColors[color]
+export function useUnaThemes() {
+  const primaryThemes = Object.entries(filteredPrimaryColors).map(([color]) => [
+    color,
+    getColors(color, 'primary'),
+  ]) as [string, Colors][]
 
-  if (!colorPalette)
-    throw new Error(`Invalid primary color: ${color}`)
+  const grayThemes = Object.entries(filteredGrayColors).map(([color]) => [
+    color,
+    getColors(color, 'gray'),
+  ]) as [string, Colors][]
 
-  const colors = {} as Required<Colors> // Initialize an empty object to store the theme colors
+  // transfer to utils
+  function getColors(color: string, prefix: string): Colors {
+    const colorPalette: ColorPalette = filteredColors[color]
 
-  colors[`--una-${prefix}-hex`] = colorPalette[600] as string // Assign the primary color hex code to the corresponding theme variable
+    if (!colorPalette)
+      throw new Error(`Invalid primary color: ${color}`)
 
-  // Iterate over each shade in the color palette and assign it to the corresponding theme variable
-  for (const shade of Object.keys(colorPalette) as unknown as Shade[])
-    colors[`--una-${prefix}-${shade}`] = hexToRgb(colorPalette[shade]).join(', ')
+    const colors = {} as Required<Colors> // Initialize an empty object to store the theme colors
 
-  return colors
+    colors[`--una-${prefix}-hex`] = colorPalette[600] as string // Assign the primary color hex code to the corresponding theme variable
+
+    // Iterate over each shade in the color palette and assign it to the corresponding theme variable
+    for (const shade of Object.keys(colorPalette) as unknown as Shade[])
+      colors[`--una-${prefix}-${shade}`] = hexToRgb(colorPalette[shade]).join(', ')
+
+    return colors
+  }
+  function getPrimaryColors(color: string) {
+    return primaryThemes.filter(([colorName, _]) => colorName === color)[0][1]
+  }
+
+  function getGrayColors(color: string) {
+    return grayThemes.filter(([colorName, _]) => colorName === color)[0][1]
+  }
+
+  return {
+    primaryThemes,
+    grayThemes,
+    getPrimaryColors,
+    getGrayColors,
+  }
 }
-
-// export const primaryThemes = Object.entries({ ...filteredPrimaryColors, ...filteredGrayColors }).map(([color]) => [
-//   color,
-//   getColors(color, 'primary'),
-// ]) as [string, Colors][]
-
-// export const grayThemes = Object.entries({ ...filteredPrimaryColors, ...filteredGrayColors }).map(([color]) => [
-//   color,
-//   getColors(color, 'gray'),
-// ]) as [string, Colors][]
-
-export const primaryThemes = Object.entries(filteredPrimaryColors).map(([color]) => [
-  color,
-  getColors(color, 'primary'),
-]) as [string, Colors][]
-
-export const grayThemes = Object.entries(filteredGrayColors).map(([color]) => [
-  color,
-  getColors(color, 'gray'),
-]) as [string, Colors][]

@@ -4,8 +4,7 @@ import { defineComponent } from 'vue'
 import { isEqual } from 'ohash'
 import type { NLinkProps } from '../../types'
 
-// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error
-// @ts-ignore tsconfig
+// @ts-expect-error tsconfig
 import { NuxtLink } from '#components'
 
 export default defineComponent({
@@ -31,6 +30,16 @@ export default defineComponent({
       type: String as PropType<NLinkProps['inactiveClass']>,
       default: undefined,
     },
+
+    // preset
+    navLinkActive: {
+      type: String as PropType<NLinkProps['navLinkActive']>,
+      default: undefined,
+    },
+    navLinkInactive: {
+      type: String as PropType<NLinkProps['navLinkInactive']>,
+      default: undefined,
+    },
   },
   setup(props) {
     function resolveLinkClass(route: any, $route: any, { isActive, isExactActive }: { isActive: boolean; isExactActive: boolean }) {
@@ -49,8 +58,39 @@ export default defineComponent({
       return props.inactiveClass
     }
 
+    function resolveNavLinkActive(route: any, $route: any, { isActive, isExactActive }: { isActive: boolean; isExactActive: boolean }) {
+      if (props.exactQuery && !isEqual(route.query, $route.query))
+        return null
+
+      if (props.exactHash && !isEqual(route.hash, $route.hash))
+        return null
+
+      if (props.exact && isExactActive)
+        return props.navLinkActive
+
+      if (!props.exact && isActive)
+        return props.navLinkActive
+
+      return null
+    }
+
+    function resolveNavLinkInactive(route: any, $route: any, { isActive, isExactActive }: { isActive: boolean; isExactActive: boolean }) {
+      if (props.exactQuery && !isEqual(route.query, $route.query))
+        return props.navLinkInactive
+
+      if (props.exactHash && !isEqual(route.hash, $route.hash))
+        return props.navLinkInactive
+
+      if ((!props.exact && isActive) || (props.exact && isExactActive))
+        return null
+
+      return props.navLinkInactive
+    }
+
     return {
       resolveLinkClass,
+      resolveNavLinkActive,
+      resolveNavLinkInactive,
     }
   },
 })
@@ -60,16 +100,16 @@ export default defineComponent({
   <NuxtLink
     v-slot="{ route, href, target, rel, navigate, isActive, isExactActive, isExternal }"
     v-bind="$props"
-    class="link"
     custom
   >
     <a
       v-bind="$attrs"
       :href="href"
       :rel="rel"
-      class="link"
       :target="target"
       :class="resolveLinkClass(route, $route, { isActive, isExactActive })"
+      :nav-link-active="resolveNavLinkActive(route, $route, { isActive, isExactActive })"
+      :nav-link-inactive="resolveNavLinkInactive(route, $route, { isActive, isExactActive })"
       @click="(e) => !isExternal && navigate(e)"
     >
       <slot v-bind="{ isActive: exact ? isExactActive : isActive }" />
