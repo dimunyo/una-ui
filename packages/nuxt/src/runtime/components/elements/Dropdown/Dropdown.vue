@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
+import { Menu, MenuButton } from '@headlessui/vue'
 import { useElementHover } from '@vueuse/core'
 import { onMounted, ref, watchEffect } from 'vue'
 import { usePopper } from '../../../composables/usePopper'
 import type { NDropdownProps } from '../../../types'
 import { omitProps } from '../../../utils'
 import NButton from '../Button.vue'
-import NDropdownMenuItemsList from './DropdownMenuItemsList.vue'
+import NDropdownMenuItems from './DropdownMenuItems.vue'
 
 const props = withDefaults(defineProps<NDropdownProps>(), {
   closeDelay: 300,
@@ -88,13 +88,9 @@ onMounted(() => {
       v-if="open"
       ref="container"
       :style="floatingStyles"
+      class="w-full"
     >
-      <MenuItems
-        static
-        class="w-56 rounded-md bg-muted shadow-lg ring-1 ring-base divide-y divide-base focus:outline-none"
-      >
-        <NDropdownMenuItemsList :items="props.items" />
-      </MenuItems>
+      <NDropdownMenuItems :items="props.items" />
     </div>
   </Menu>
 </template>
