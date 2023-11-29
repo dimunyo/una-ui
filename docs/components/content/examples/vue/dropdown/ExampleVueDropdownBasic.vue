@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center pb-100">
+  <div class="h-200 overflow-auto">
     <NDropdown
       label="Options"
       btn="solid-gray"

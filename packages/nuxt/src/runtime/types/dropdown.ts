@@ -1,12 +1,12 @@
+import type { UseFloatingOptions } from '@floating-ui/vue'
 import type { NButtonProps } from './button'
 
 export interface NDropdownProps extends Omit<NButtonProps, 'una'> {
-  items?: NDropdownItemProps[]
+  items?: NDropdownProps[][]
+
+  popper?: UseFloatingOptions
+
   una?: {
     dropdown?: string
   } & NButtonProps['una']
-}
-
-export interface NDropdownItemProps {
-
 }

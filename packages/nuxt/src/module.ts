@@ -1,11 +1,12 @@
 import { addComponentsDir, addImportsDir, addPlugin, createResolver, defineNuxtModule, installModule } from '@nuxt/kit'
+import type { UseFloatingOptions } from '@floating-ui/vue'
 import { name, version } from '../package.json'
-
 import extendUnocssOptions from './una.config'
 
 interface UnaOptions {
   primary?: string
   gray?: string
+  floating?: UseFloatingOptions
 }
 
 declare module '@nuxt/schema' {
@@ -115,6 +116,9 @@ export default defineNuxtModule<ModuleOptions>({
       classSuffix: '',
     })
     await installModule('@vueuse/nuxt')
+    await installModule('radix-vue/nuxt', {
+      prefix: options.prefix,
+    })
 
     // composables
     addImportsDir(resolve(runtimeDir, 'composables'))
