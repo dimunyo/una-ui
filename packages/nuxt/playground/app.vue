@@ -8,6 +8,6 @@
 
     <Dropdown />
 
-    <NDropdownMenuTrigger />
+    <!-- <NDropdownMenuTrigger /> -->
   </div>
 </template>

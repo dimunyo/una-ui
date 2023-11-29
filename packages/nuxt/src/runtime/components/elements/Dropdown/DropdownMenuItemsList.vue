@@ -15,8 +15,13 @@ const props = defineProps<NDropdownProps>()
 
       <NDropdown
         v-else
-        v-bind="link"
+        :popper="{
+          placement: 'right-start',
+        }"
+        trailing="i-heroicons-chevron-right"
         :btn="`${active ? 'soft-gray' : 'ghost-gray'} block`"
+        hover
+        v-bind="link"
       />
     </MenuItem>
   </div>

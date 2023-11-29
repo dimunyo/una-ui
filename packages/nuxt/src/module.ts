@@ -116,9 +116,6 @@ export default defineNuxtModule<ModuleOptions>({
       classSuffix: '',
     })
     await installModule('@vueuse/nuxt')
-    await installModule('radix-vue/nuxt', {
-      prefix: options.prefix,
-    })
 
     // composables
     addImportsDir(resolve(runtimeDir, 'composables'))

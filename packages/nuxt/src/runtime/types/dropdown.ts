@@ -6,6 +6,10 @@ export interface NDropdownProps extends Omit<NButtonProps, 'una'> {
 
   popper?: UseFloatingOptions
 
+  hover?: boolean
+  closeDelay?: number
+  openDelay?: number
+
   una?: {
     dropdown?: string
   } & NButtonProps['una']

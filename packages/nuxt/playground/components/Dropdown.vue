@@ -51,6 +51,7 @@ const items = [
   <div>
     <NDropdown
       :items="items"
+      hover
       btn="solid-gray"
       label="Options"
     />

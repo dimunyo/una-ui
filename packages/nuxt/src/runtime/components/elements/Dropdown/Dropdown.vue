@@ -1,18 +1,72 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
+import { useElementHover } from '@vueuse/core'
+import { onMounted, ref, watchEffect } from 'vue'
 import { usePopper } from '../../../composables/usePopper'
 import type { NDropdownProps } from '../../../types'
 import { omitProps } from '../../../utils'
 import NButton from '../Button.vue'
-import NDropdownMenuItems from './DropdownMenuItems.vue'
+import NDropdownMenuItemsList from './DropdownMenuItemsList.vue'
 
-const props = defineProps<NDropdownProps>()
+const props = withDefaults(defineProps<NDropdownProps>(), {
+  closeDelay: 300,
+  openDelay: 200,
+})
 
 const { floatingStyles, reference, container } = usePopper(props.popper)
+
+const isHoveredReference = useElementHover(reference)
+const isHoveredContainer = useElementHover(container)
+
+const menuApi = ref<any>(null)
+let closeTimer: NodeJS.Timeout | null = null
+let openTimer: NodeJS.Timeout | null = null
+
+watchEffect(() => {
+  if (!props.hover)
+    return
+
+  if (isHoveredReference.value || isHoveredContainer.value) {
+    if (closeTimer) {
+      clearTimeout(closeTimer)
+      closeTimer = null
+    }
+
+    openTimer = setTimeout(() => {
+      menuApi.value?.openMenu()
+    }, props.openDelay)
+  }
+  else {
+    if (openTimer) {
+      clearTimeout(openTimer)
+      openTimer = null
+    }
+
+    closeTimer = setTimeout(() => {
+      menuApi.value?.closeMenu()
+    }, props.closeDelay)
+  }
+})
+
+onMounted(() => {
+  setTimeout(() => {
+    // @ts-expect-error internals
+    const menuProvides = reference.value?.$.provides
+    if (!menuProvides)
+      return
+
+    const menuProvidesSymbols = Object.getOwnPropertySymbols(menuProvides)
+    menuApi.value = menuProvidesSymbols.length && menuProvides[menuProvidesSymbols[0]]
+  }, 200)
+})
 </script>
 
 <template>
-  <Menu v-slot="{ open }" as="div" class="relative">
+  <Menu
+    v-slot="{ open }"
+    as="div"
+    class="relative"
+  >
     <MenuButton
       ref="reference"
       as="div"
@@ -26,14 +80,7 @@ const { floatingStyles, reference, container } = usePopper(props.popper)
           :una="{
             btnTrailing: 'dropdown-button-trailing',
           }"
-        >
-          <template #trailing>
-            <NIcon
-              name="chevron-down"
-              class="dropdown-button-trailing-icon"
-            />
-          </template>
-        </NButton>
+        />
       </slot>
     </MenuButton>
 
@@ -46,9 +93,7 @@ const { floatingStyles, reference, container } = usePopper(props.popper)
         static
         class="w-56 rounded-md bg-muted shadow-lg ring-1 ring-base divide-y divide-base focus:outline-none"
       >
-        <!-- <div v-for="(item, i) in items" :key="i" class="p-1"> -->
-        <NDropdownMenuItems :items="props.items" />
-        <!-- </div> -->
+        <NDropdownMenuItemsList :items="props.items" />
       </MenuItems>
     </div>
   </Menu>
