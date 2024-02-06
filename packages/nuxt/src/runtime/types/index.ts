@@ -15,6 +15,7 @@ export * from './nav-link-group'
 export * from './link'
 export * from './radio'
 export * from './checkbox'
+export * from './select'
 
 export interface Colors {
   [key: string]: string

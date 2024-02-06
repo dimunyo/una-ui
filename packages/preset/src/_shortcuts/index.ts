@@ -17,6 +17,7 @@ import { indicator } from './indicator'
 import { kbd } from './kbd'
 import { radio } from './radio'
 import { checkbox } from './checkbox'
+import { select } from './select'
 
 export const shortcuts = [
   ...general,
@@ -37,4 +38,5 @@ export const shortcuts = [
   ...link,
   ...radio,
   ...checkbox,
+  ...select,
 ] as Exclude<Preset['shortcuts'], undefined | StaticShortcutMap>
