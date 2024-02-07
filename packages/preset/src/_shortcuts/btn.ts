@@ -44,6 +44,10 @@ export const dynamicBtn: [RegExp, (params: RegExpExecArray) => string][] = [
   [/^btn-soft(-(\S+))?$/, ([, , c = 'primary']) => `btn-focus-${c} text-${c}-600 dark:text-${c}-400 bg-${c}-50 dark:bg-${c}-950 hover:bg-${c}-100 dark:hover:bg-${c}-900`],
   [/^btn-ghost(-(\S+))?$/, ([, , c = 'primary']) => `btn-focus-${c} text-${c}-600 dark:text-${c}-400 hover:bg-${c}-100 dark:hover:bg-${c}-900`],
   [/^btn-link(-(\S+))?$/, ([, , c = 'primary']) => `btn-focus-${c} text-${c}-500 dark:text-${c}-400 hover:underline underline-offset-4`],
+
+  // base on input variants
+  [/^btn-input-outline(-(\S+))?$/, ([, , c = 'primary']) => `bg-$c-gray-50 text-$c-gray-800 ring-base input-outline-${c} ring-inset shadow-sm outline-none`],
+  [/^btn-input-solid(-(\S+))?$/, ([, , c = 'primary']) => `bg-$c-gray-50 text-$c-gray-800 ring-base input-solid-${c} ring-inset shadow-sm outline-none`],
 ]
 
 export const btn = [

@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<NButtonProps>(), {
   }),
 })
 
-const btnVariants = ['solid', 'outline', 'soft', 'ghost', 'link', 'text'] as const
+const btnVariants = ['solid', 'outline', 'soft', 'ghost', 'link', 'text', 'input-solid', 'input-outline'] as const
 const hasVariant = computed(() => btnVariants.some(btnVariants => props.btn?.includes(btnVariants)))
 const isBaseVariant = computed(() => props.btn?.includes('~'))
 
