@@ -6,6 +6,7 @@ export const staticSelect: Record<`${SelectPrefix}-${string}` | SelectPrefix, st
 
   // wrappers
   'select-wrapper': '',
+
 }
 
 export const dynamicSelect: [RegExp, (params: RegExpExecArray) => string][] = [
